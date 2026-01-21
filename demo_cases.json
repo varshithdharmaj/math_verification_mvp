@@ -1,0 +1,78 @@
+{
+    "metadata": {
+        "version": "2.0",
+        "created": "2025-11-22",
+        "description": "Test cases for MVM² multimodal math verifier"
+    },
+    "cases": [
+        {
+            "id": 1,
+            "name": "Arithmetic Error",
+            "category": "arithmetic",
+            "problem": "Janet has 3 apples. She buys 2 more. She gives 1 away. How many does she have?",
+            "steps": [
+                "Janet starts with 3 apples",
+                "She buys 2 more: 3 + 2 = 5 apples",
+                "She gives 1 away: 5 - 1 = 4 apples"
+            ],
+            "expected_verdict": "VALID",
+            "difficulty": "easy"
+        },
+        {
+            "id": 2,
+            "name": "Subtraction Error",
+            "category": "arithmetic",
+            "problem": "Calculate 10 - 3 + 2",
+            "steps": [
+                "10 - 3 = 7",
+                "7 + 2 = 9"
+            ],
+            "expected_verdict": "VALID",
+            "difficulty": "easy"
+        },
+        {
+            "id": 3,
+            "name": "Multiplication Error",
+            "category": "arithmetic",
+            "problem": "There are 5 boxes with 8 apples each. How many apples total?",
+            "steps": [
+                "Number of boxes = 5",
+                "Apples per box = 8",
+                "Total = 5 × 8 = 45"
+            ],
+            "expected_verdict": "ERROR",
+            "error_type": "arithmetic_error",
+            "difficulty": "easy"
+        },
+        {
+            "id": 4,
+            "name": "Complex Multi-Step",
+            "category": "word_problem",
+            "problem": "John has $50. He spends $12 on lunch and $8 on coffee. How much is left?",
+            "steps": [
+                "Starting amount = $50",
+                "Lunch cost = $12",
+                "Coffee cost = $8",
+                "Total spent = 12 + 8 = 20",
+                "Remaining = 50 - 20 = 30"
+            ],
+            "expected_verdict": "VALID",
+            "difficulty": "medium"
+        },
+        {
+            "id": 5,
+            "name": "Division with Remainder",
+            "category": "arithmetic",
+            "problem": "Divide 17 candies equally among 5 children. How many does each get?",
+            "steps": [
+                "Total candies = 17",
+                "Number of children = 5",
+                "17 ÷ 5 = 3.4",
+                "Each child gets 3 candies",
+                "Remainder = 2 candies"
+            ],
+            "expected_verdict": "VALID",
+            "difficulty": "medium"
+        }
+    ]
+}

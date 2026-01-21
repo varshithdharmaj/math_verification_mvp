@@ -1,0 +1,67 @@
+{
+  "total": 5,
+  "correct": 0,
+  "accuracy": 0.0,
+  "results": [
+    {
+      "sample_index": "1",
+      "problem_index": "1",
+      "problem_version": "Text Dominant",
+      "subject": "unknown",
+      "level": 0,
+      "predicted": "VALID",
+      "ground_truth": "D",
+      "correct": false,
+      "confidence": 0.99,
+      "verdict": "VALID"
+    },
+    {
+      "sample_index": "2",
+      "problem_index": "1",
+      "problem_version": "Text Lite",
+      "subject": "unknown",
+      "level": 0,
+      "predicted": "VALID",
+      "ground_truth": "D",
+      "correct": false,
+      "confidence": 0.99,
+      "verdict": "VALID"
+    },
+    {
+      "sample_index": "3",
+      "problem_index": "1",
+      "problem_version": "Vision Intensive",
+      "subject": "unknown",
+      "level": 0,
+      "predicted": "VALID",
+      "ground_truth": "D",
+      "correct": false,
+      "confidence": 0.7690127819548873,
+      "verdict": "VALID"
+    },
+    {
+      "sample_index": "4",
+      "problem_index": "1",
+      "problem_version": "Vision Dominant",
+      "subject": "unknown",
+      "level": 0,
+      "predicted": "VALID",
+      "ground_truth": "D",
+      "correct": false,
+      "confidence": 0.7690127819548873,
+      "verdict": "VALID"
+    },
+    {
+      "sample_index": "5",
+      "problem_index": "1",
+      "problem_version": "Vision Only",
+      "subject": "unknown",
+      "level": 0,
+      "predicted": "VALID",
+      "ground_truth": "D",
+      "correct": false,
+      "confidence": 0.7690127819548873,
+      "verdict": "VALID"
+    }
+  ]
+}

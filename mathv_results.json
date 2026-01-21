@@ -1,0 +1,63 @@
+{
+  "total": 5,
+  "correct": 0,
+  "accuracy": 0.0,
+  "dataset": "MATH-Vision (NeurIPS 2024)",
+  "results": [
+    {
+      "problem_id": "1",
+      "subject": "arithmetic",
+      "level": 2,
+      "predicted": "VALID",
+      "ground_truth": "60",
+      "correct": false,
+      "confidence": 0.8544586466165415,
+      "verdict": "VALID",
+      "processing_time": 2.0851407051086426
+    },
+    {
+      "problem_id": "2",
+      "subject": "arithmetic",
+      "level": 2,
+      "predicted": "VALID",
+      "ground_truth": "A",
+      "correct": false,
+      "confidence": 0.8544586466165415,
+      "verdict": "VALID",
+      "processing_time": 2.0656626224517822
+    },
+    {
+      "problem_id": "3",
+      "subject": "metric geometry - length",
+      "level": 1,
+      "predicted": "VALID",
+      "ground_truth": "C",
+      "correct": false,
+      "confidence": 0.8544586466165415,
+      "verdict": "VALID",
+      "processing_time": 2.0849320888519287
+    },
+    {
+      "problem_id": "4",
+      "subject": "counting",
+      "level": 1,
+      "predicted": "VALID",
+      "ground_truth": "6",
+      "correct": false,
+      "confidence": 0.8544586466165415,
+      "verdict": "VALID",
+      "processing_time": 2.0441861152648926
+    },
+    {
+      "problem_id": "5",
+      "subject": "arithmetic",
+      "level": 2,
+      "predicted": "VALID",
+      "ground_truth": "61",
+      "correct": false,
+      "confidence": 0.8544586466165415,
+      "verdict": "VALID",
+      "processing_time": 2.071483612060547
+    }
+  ]
+}

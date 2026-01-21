@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  ocr-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./services:/app/services
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python services/ocr_service.py
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  sympy-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./services:/app/services
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python services/sympy_service.py
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  llm-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8003:8003"
+    volumes:
+      - ./services:/app/services
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - PYTHONUNBUFFERED=1
+    command: python services/llm_service.py
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  streamlit-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    depends_on:
+      - ocr-service
+      - sympy-service
+      - llm-service
+    environment:
+      - OCR_SERVICE_URL=http://ocr-service:8001
+      - SYMPY_SERVICE_URL=http://sympy-service:8002
+      - LLM_SERVICE_URL=http://llm-service:8003
+    command: streamlit run app.py --server.address=0.0.0.0
+    restart: unless-stopped
+
+networks:
+  default:
+    name: mvm2-network
