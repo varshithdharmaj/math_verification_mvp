@@ -237,6 +237,13 @@ async def verify_step_by_step(structured_data: Dict[str, Any], mode: str = "full
     """
     problem = structured_data.get("problem", "")
     steps = structured_data.get("steps", [])
+    if structured_data.get("out_of_scope"):
+        return {
+            "out_of_scope": True,
+            "reason": "Expression outside restricted algebra/calculus segment",
+            "sympy": {"valid": False, "confidence": 0.0, "errors": []},
+            "llm": {"valid": False, "confidence": 0.0, "details": []}
+        }
     
     # Configure Agents based on Mode
     # (Assuming llm_reasoner relies on its internal DEFAULT_AGENTS or we modify it here)

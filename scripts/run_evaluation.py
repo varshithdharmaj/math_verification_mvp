@@ -12,24 +12,98 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import argparse
-from typing import List, Dict
+from typing import List, Dict, Any
 from backend.core.orchestrator import MathVerificationOrchestrator
 
 MODES = [
     "single_llm_only",
     "llm_plus_sympy",
+    "multi_agent_no_classifier",
     "multi_agent_no_ocr_conf",
+    "multi_agent_with_classifier",
     "full_mvm2"
 ]
 
-async def evaluate_dataset(dataset_path: str, output_csv: str):
+
+def normalize_sample(sample: Dict[str, Any]) -> Dict[str, Any]:
+    input_type = sample.get("input_type") or sample.get("type") or "text"
+    input_type = input_type.lower()
+    problem_id = sample.get("problem_id", "")
+    ground_truth = sample.get("ground_truth_answer") or sample.get("answer") or ""
+    split = sample.get("split", "")
+
+    input_text = sample.get("input_text")
+    image_path = sample.get("image_path")
+
+    if not input_text and not image_path:
+        legacy = sample.get("input_text_or_path", "")
+        if input_type in ["image", "handwritten"]:
+            image_path = legacy
+        else:
+            input_text = legacy
+
+    steps = sample.get("steps", [])
+
+    return {
+        "problem_id": problem_id,
+        "input_type": "image" if input_type in ["image", "handwritten"] else "text",
+        "input_text": input_text or "",
+        "image_path": image_path or "",
+        "ground_truth_answer": str(ground_truth).strip(),
+        "split": split,
+        "steps": steps
+    }
+
+
+def load_dataset(path: str) -> List[Dict[str, Any]]:
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return [normalize_sample(s) for s in data]
+
+
+def normalize_answer(text: str) -> str:
+    if text is None:
+        return ""
+    return str(text).strip().lower().replace(" ", "")
+
+
+def extract_metrics(result: Dict[str, Any]) -> Dict[str, Any]:
+    all_scores = result.get("all_scores", [])
+    if all_scores:
+        sym_scores = [s.get("breakdown", {}).get("sym", 0.0) for s in all_scores]
+        logic_scores = [s.get("breakdown", {}).get("logic", 0.0) for s in all_scores]
+        symbolic_score = sum(sym_scores) / len(sym_scores)
+        logical_score = sum(logic_scores) / len(logic_scores)
+    else:
+        symbolic_score = 0.0
+        logical_score = 0.0
+
+    consensus_stats = result.get("consensus_stats", {})
+    avg_consensus = consensus_stats.get("avg_consensus", 0.0)
+    hallucination_rate = consensus_stats.get("hallucination_rate", 0.0)
+    consensus_total_steps = consensus_stats.get("total_steps", 0)
+    num_flagged_steps = int(hallucination_rate * consensus_total_steps) if consensus_total_steps else 0
+
+    reasoning_text = result.get("winning_reasoning", "")
+    reasoning_length = len(reasoning_text.split())
+
+    return {
+        "symbolic_score": round(symbolic_score, 4),
+        "logical_score": round(logical_score, 4),
+        "avg_consensus": round(avg_consensus, 4),
+        "hallucination_rate": round(hallucination_rate, 4),
+        "consensus_total_steps": consensus_total_steps,
+        "num_flagged_steps": num_flagged_steps,
+        "reasoning_length": reasoning_length
+    }
+
+async def evaluate_dataset(dataset_path: str, output_csv: str, split: str = ""):
     """
     Reads dataset, runs pipeline for ALL modes, and logs results.
     """
     print(f"[INFO] Loading dataset from {dataset_path}...")
     try:
-        with open(dataset_path, 'r') as f:
-            data = json.load(f)
+        data = load_dataset(dataset_path)
     except Exception as e:
         print(f"[ERROR] Failed to load dataset: {e}")
         return
@@ -37,21 +111,29 @@ async def evaluate_dataset(dataset_path: str, output_csv: str):
     orchestrator = MathVerificationOrchestrator()
     
     csv_header = [
-        "problem_id", "type", "mode", "latency_ms", "exact_match", 
-        "final_confidence", "avg_consensus", "hallucination_rate",
-        "verdict", "ground_truth", "predicted"
+        "problem_id", "input_type", "split", "mode", "latency_ms",
+        "is_correct", "predicted_answer", "ground_truth_answer",
+        "symbolic_score", "logical_score", "avg_consensus",
+        "hallucination_rate", "num_flagged_steps", "consensus_total_steps",
+        "ocr_confidence", "steps_count", "reasoning_length",
+        "final_confidence", "final_verdict"
     ]
     
     results = []
     
+    if split:
+        data = [d for d in data if d.get("split") == split]
     print(f"[INFO] Starting evaluation on {len(data)} samples across {len(MODES)} modes...")
     print("-" * 60)
     
     for i, sample in enumerate(data):
         pid = sample.get("problem_id", f"sample_{i}")
-        ptype = sample.get("type", "unknown")
-        inp = sample.get("input_text_or_path", "")
+        ptype = sample.get("input_type", "unknown")
+        inp_text = sample.get("input_text", "")
+        inp_img = sample.get("image_path", "")
         gt = sample.get("ground_truth_answer", "").strip()
+        steps = sample.get("steps", [])
+        split_name = sample.get("split", "")
         
         print(f"[{i+1}/{len(data)}] Processing {pid} ({ptype})...")
         
@@ -61,15 +143,14 @@ async def evaluate_dataset(dataset_path: str, output_csv: str):
             
             try:
                 # Run Pipeline
-                if ptype == "image" or ptype == "handwritten":
-                     if os.path.exists(inp):
-                         result = await orchestrator._verify_from_image_async(inp, mode=mode)
+                if ptype == "image":
+                     if os.path.exists(inp_img):
+                         result = await orchestrator._verify_from_image_async(inp_img, mode=mode)
                      else:
                          print(" [SKIP] Image not found")
                          continue
                 else:
-                    # Text input
-                    result = await orchestrator._verify_async(inp, [], mode=mode)
+                    result = await orchestrator._verify_async(inp_text, steps, mode=mode)
                 
                 latency = (time.time() - start_time) * 1000
                 
@@ -77,27 +158,34 @@ async def evaluate_dataset(dataset_path: str, output_csv: str):
                 final_conf = result.get("confidence_score", 0.0)
                 verdict = result.get("final_verdict", "UNKNOWN")
                 predicted = result.get("final_answer", "").strip()
+                ocr_conf = result.get("ocr_confidence", 1.0)
                 
                 # Consensus metrics
-                consensus_stats = result.get("consensus_stats", {})
-                avg_cons = consensus_stats.get("avg_consensus", 0.0)
-                hall_rate = consensus_stats.get("hallucination_rate", 0.0)
+                metrics = extract_metrics(result)
                 
                 # Accuracy
-                is_correct = (predicted == gt)
+                is_correct = (normalize_answer(predicted) == normalize_answer(gt))
                 
                 row = {
                     "problem_id": pid,
-                    "type": ptype,
+                    "input_type": ptype,
+                    "split": split_name,
                     "mode": mode,
                     "latency_ms": round(latency, 2),
-                    "exact_match": is_correct,
+                    "is_correct": is_correct,
+                    "predicted_answer": predicted,
+                    "ground_truth_answer": gt,
+                    "symbolic_score": metrics["symbolic_score"],
+                    "logical_score": metrics["logical_score"],
+                    "avg_consensus": metrics["avg_consensus"],
+                    "hallucination_rate": metrics["hallucination_rate"],
+                    "num_flagged_steps": metrics["num_flagged_steps"],
+                    "consensus_total_steps": metrics["consensus_total_steps"],
+                    "ocr_confidence": round(ocr_conf, 4),
+                    "steps_count": len(steps),
+                    "reasoning_length": metrics["reasoning_length"],
                     "final_confidence": round(final_conf, 4),
-                    "avg_consensus": round(avg_cons, 4),
-                    "hallucination_rate": round(hall_rate, 4),
-                    "verdict": verdict,
-                    "ground_truth": gt,
-                    "predicted": predicted
+                    "final_verdict": verdict
                 }
                 results.append(row)
                 print(f" Done. Latency: {row['latency_ms']}ms, Correct: {is_correct}")
@@ -107,12 +195,13 @@ async def evaluate_dataset(dataset_path: str, output_csv: str):
                 latency = (time.time() - start_time) * 1000
                 results.append({
                     "problem_id": pid,
-                    "type": ptype,
+                    "input_type": ptype,
+                    "split": split_name,
                     "mode": mode,
                     "latency_ms": round(latency, 2),
-                    "exact_match": False,
-                    "verdict": "ERROR",
-                    "predicted": str(e)
+                    "is_correct": False,
+                    "final_verdict": "ERROR",
+                    "predicted_answer": str(e)
                 })
 
     # Save to CSV
@@ -139,7 +228,7 @@ def generate_summary(results: List[Dict]):
         mode = r.get("mode")
         if mode in stats:
             stats[mode]["total"] += 1
-            if r.get("exact_match") == True:
+            if r.get("is_correct") == True:
                 stats[mode]["correct"] += 1
             
             # Handle empty/string values safely
@@ -173,6 +262,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", type=str, default="datasets/sample_data.json", help="Path to dataset JSON")
     parser.add_argument("--output", type=str, default="evaluation_results.csv", help="Path to output CSV")
+    parser.add_argument("--split", type=str, default="", help="Optional split filter (train/val/test)")
     args = parser.parse_args()
     
-    asyncio.run(evaluate_dataset(args.dataset, args.output))
+    asyncio.run(evaluate_dataset(args.dataset, args.output, args.split))

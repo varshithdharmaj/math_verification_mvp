@@ -2,18 +2,25 @@
 Classifier Service Module
 Aggregates verification results and assigns a final score/category.
 """
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
+import os
 # Import verification service helpers (ensure this circular import is handled or logic is moved)
 # Since classifier depends on verification outputs, simple import should be fine if main calls them sequentially.
 try:
     from backend.core.verification_service import (
-        compute_symbolic_score, 
+        compute_symbolic_score,
         compute_logical_score,
         compute_step_consensus
     )
 except ImportError:
     # Fallback for direct execution testing
     pass
+
+try:
+    from backend.models.reasoning_classifier import load_model_or_none, build_feature_vector
+except ImportError:
+    load_model_or_none = None
+    build_feature_vector = None
 
 def compute_final_confidence(score: float, ocr_conf: float) -> float:
     """
@@ -44,10 +51,70 @@ def compute_clf_score(agent_consensus_scores: List[float], steps: List[str]) -> 
     # Base score is average consensus
     return max(0.0, avg_consensus - penalty)
 
-async def classify_and_score(verification_results: Dict[str, Any], ocr_confidence: float = 1.0, use_ocr_calibration: bool = True) -> Dict[str, Any]:
+
+def compute_clf_score_learned(
+    symbolic_score: float,
+    logical_score: float,
+    avg_consensus: float,
+    hallucination_rate: float,
+    num_flagged_steps: int,
+    ocr_confidence: float,
+    steps_count: int,
+    reasoning_length: int,
+    consensus_total_steps: int
+) -> Optional[float]:
+    """
+    Compute classifier score from learned model if available.
+    Returns None if no model is available.
+    """
+    if load_model_or_none is None or build_feature_vector is None:
+        return None
+
+    model = load_model_or_none()
+    if model is None:
+        return None
+
+    features = build_feature_vector(
+        symbolic_score=symbolic_score,
+        logical_score=logical_score,
+        avg_consensus=avg_consensus,
+        hallucination_rate=hallucination_rate,
+        num_flagged_steps=num_flagged_steps,
+        ocr_confidence=ocr_confidence,
+        steps_count=steps_count,
+        reasoning_length=reasoning_length,
+        consensus_total_steps=consensus_total_steps
+    )
+
+    # Predict probability of "correct"
+    try:
+        proba = model.predict_proba([features])[0][1]
+        return float(proba)
+    except Exception:
+        return None
+
+async def classify_and_score(
+    verification_results: Dict[str, Any],
+    ocr_confidence: float = 1.0,
+    use_ocr_calibration: bool = True,
+    use_classifier: bool = True
+) -> Dict[str, Any]:
     """
     Computes final verdict using weighted consensus of Agents.
     """
+    # Out-of-scope guard
+    if verification_results.get("out_of_scope"):
+        return {
+            "final_verdict": "OUT_OF_SCOPE",
+            "confidence_score": 0.0,
+            "error_category": "Out of Scope",
+            "best_agent": "None",
+            "final_answer": "",
+            "consensus_stats": {},
+            "all_scores": [],
+            "winning_reasoning": ""
+        }
+
     # 1. Unpack Agent Results
     llm_output = verification_results.get("llm", {})
     agent_results = llm_output.get("details", [])
@@ -86,9 +153,32 @@ async def classify_and_score(verification_results: Dict[str, Any], ocr_confidenc
         # B. Logical Score
         logic = compute_logical_score(res)
         
-        # C. Classifier Score (Consensus)
+        # C. Classifier Score (Rule-based or Learned)
         cons_scores = consensus_map.get(name, [])
-        clf = compute_clf_score(cons_scores, res.get("steps", []))
+        avg_cons = sum(cons_scores) / len(cons_scores) if cons_scores else 0.0
+        low_cons_steps = sum(1 for s in cons_scores if s < 0.4)
+        hallucination_rate = low_cons_steps / len(cons_scores) if cons_scores else 0.0
+        steps_count = len(res.get("steps", []))
+        reasoning_length = len(res.get("reasoning", "").split())
+        consensus_total_steps = len(cons_scores)
+
+        clf = None
+        if use_classifier:
+            clf = compute_clf_score_learned(
+                symbolic_score=sym,
+                logical_score=logic,
+                avg_consensus=avg_cons,
+                hallucination_rate=hallucination_rate,
+                num_flagged_steps=low_cons_steps,
+                ocr_confidence=ocr_confidence,
+                steps_count=steps_count,
+                reasoning_length=reasoning_length,
+                consensus_total_steps=consensus_total_steps
+            )
+
+        if clf is None:
+            # Fallback to rule-based classifier score
+            clf = compute_clf_score(cons_scores, res.get("steps", []))
         
         # D. Weighted Sum
         # Score_j = 0.4*sym + 0.35*logic + 0.25*clf
@@ -99,11 +189,6 @@ async def classify_and_score(verification_results: Dict[str, Any], ocr_confidenc
             final_conf = compute_final_confidence(raw_score, ocr_confidence)
         else:
             final_conf = raw_score
-        
-        # Calculate Consensus Stats
-        avg_cons = sum(cons_scores)/len(cons_scores) if cons_scores else 0.0
-        low_cons_steps = sum(1 for s in cons_scores if s < 0.4)
-        hallucination_rate = low_cons_steps / len(cons_scores) if cons_scores else 0.0
         
         scored_agents.append({
             "agent": name,

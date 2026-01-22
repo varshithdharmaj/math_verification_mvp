@@ -55,13 +55,26 @@ class MathVerificationOrchestrator:
         use_calibration = True
         if mode == "multi_agent_no_ocr_conf":
             use_calibration = False
+
+        use_classifier = True
+        if mode in ["single_llm_only", "llm_plus_sympy", "multi_agent_no_classifier"]:
+            use_classifier = False
             
-        final_result = await classify_and_score(verification_result, ocr_confidence, use_ocr_calibration=use_calibration)
+        final_result = await classify_and_score(
+            verification_result,
+            ocr_confidence,
+            use_ocr_calibration=use_calibration,
+            use_classifier=use_classifier
+        )
         
         # Add keys expected by benchmark scripts
         final_result['overall_confidence'] = final_result.get('final_confidence', 0.0)
         final_result['final_verdict'] = final_result.get('verdict', "UNKNOWN")
         
+        final_result["ocr_confidence"] = ocr_confidence
+        final_result["verification"] = verification_result
+        final_result["input_type"] = "text"
+        final_result["mode"] = mode
         return final_result
 
     def verify_from_image(self, image_path: str, mode: str = "full_mvm2") -> Dict[str, Any]:
@@ -108,11 +121,26 @@ class MathVerificationOrchestrator:
         use_calibration = True
         if mode == "multi_agent_no_ocr_conf":
             use_calibration = False
+
+        use_classifier = True
+        if mode in ["single_llm_only", "llm_plus_sympy", "multi_agent_no_classifier"]:
+            use_classifier = False
             
-        final_result = await classify_and_score(verification_result, ocr_confidence, use_ocr_calibration=use_calibration)
+        final_result = await classify_and_score(
+            verification_result,
+            ocr_confidence,
+            use_ocr_calibration=use_calibration,
+            use_classifier=use_classifier
+        )
         
         # Add keys expected by benchmarks
         final_result['overall_confidence'] = final_result.get('final_confidence', 0.0)
         final_result['final_verdict'] = final_result.get('verdict', "UNKNOWN")
         
+        final_result["ocr_confidence"] = ocr_confidence
+        final_result["ocr_text"] = ocr_data.get("extracted_text", "")
+        final_result["ocr_normalized_text"] = ocr_data.get("normalized_text", "")
+        final_result["verification"] = verification_result
+        final_result["input_type"] = "image"
+        final_result["mode"] = mode
         return final_result

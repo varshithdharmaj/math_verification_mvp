@@ -81,8 +81,12 @@ class EnhancedMathOCR:
         Tesseract OCR with math-optimized configuration
         """
         try:
-            # Configure Tesseract for better math recognition
-            custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=0123456789+-×÷=().,abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ '
+            # Configure Tesseract for single-line math expressions
+            custom_config = (
+                r'--oem 3 --psm 7 '
+                r'-c tessedit_char_whitelist=0123456789+-×÷=().,'
+                r'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ^_/ '
+            )
             
             # Extract text
             text = pytesseract.image_to_string(image, config=custom_config)

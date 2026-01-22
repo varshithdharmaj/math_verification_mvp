@@ -1,0 +1,10 @@
+[
+  {
+    "problem_id": "text_002",
+    "input_type": "text",
+    "input_text": "Solve 2x + 5 = 15. Steps: 1. Subtract 5 from both sides: 2x = 10. 2. Divide by 2: x = 5.",
+    "image_path": "",
+    "ground_truth_answer": "5",
+    "split": "val"
+  }
+]

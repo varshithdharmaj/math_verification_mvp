@@ -3,7 +3,7 @@ Representation Service Module
 Converts raw text/LaTeX into a canonical Intermediate Representation (IR).
 """
 import re
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Tuple
 
 def to_canonical_expression(ocr_text: str) -> str:
     """
@@ -68,6 +68,56 @@ def to_canonical_expression(ocr_text: str) -> str:
     
     return expr
 
+
+def is_in_scope_expression(expr: str) -> bool:
+    """
+    Check if expression fits the restricted segment:
+    - Algebraic simplification / equation solving
+    - Simple definite integrals and limits
+    - Single-line expressions only
+    """
+    if not expr:
+        return False
+
+    # Reject multi-line
+    if "\n" in expr:
+        return False
+
+    # Reject very long expressions
+    if len(expr) > 120:
+        return False
+
+    # Allowed tokens for this segment
+    allowed = re.compile(r'^[0-9a-zA-Z\s\+\-\*/=\^\(\)_\\\{\}\.\,]+$')
+    if not allowed.match(expr):
+        return False
+
+    # Allow if equation, integral, or limit keywords present, or simple algebraic
+    has_eq = "=" in expr
+    has_integral = "\\int" in expr or "integral" in expr.lower()
+    has_limit = "\\lim" in expr or "limit" in expr.lower()
+
+    # Reject if contains unsupported functions
+    if re.search(r'\\(sum|prod|matrix|det|cases)', expr):
+        return False
+
+    # Accept if within algebra/calculus subset
+    return has_eq or has_integral or has_limit or True
+
+
+def classify_difficulty(expr: str) -> str:
+    """
+    Simple heuristic difficulty based on length and operator count.
+    """
+    if not expr:
+        return "simple"
+    ops = len(re.findall(r'[\+\-\*/\^=]', expr))
+    if len(expr) < 30 and ops <= 3:
+        return "simple"
+    if len(expr) < 70 and ops <= 7:
+        return "medium"
+    return "hard"
+
 async def normalize_input(raw_text: str) -> Dict[str, Any]:
     """
     Parses raw text into structured Problem and Steps.
@@ -94,13 +144,20 @@ async def normalize_input(raw_text: str) -> Dict[str, Any]:
     # Apply Canonicalization
     canonical_problem = to_canonical_expression(problem_raw)
     canonical_steps = [to_canonical_expression(s) for s in steps_raw]
+
+    # Scope validation for restricted segment
+    in_scope_problem = is_in_scope_expression(canonical_problem)
+    in_scope_steps = all(is_in_scope_expression(s) for s in canonical_steps if s)
+    out_of_scope = not (in_scope_problem and in_scope_steps)
     
     return {
         "problem": canonical_problem,
         "steps": canonical_steps,
         "format": "canonical_latex",
         "raw_problem": problem_raw,
-        "raw_steps": steps_raw
+        "raw_steps": steps_raw,
+        "out_of_scope": out_of_scope,
+        "difficulty": classify_difficulty(canonical_problem)
     }
 
 if __name__ == "__main__":
