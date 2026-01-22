@@ -1,8 +1,5 @@
 # MVM²: MVM² - Multi-Modal Multi-Model Mathematical Reasoning Verification System
 
-**VNR VJIET Major Project 2025**  
-**Team:** Brahma Teja, Vinith Kulkarni, Varshith Dharmaj V, Bhavitha Yaragorla
-
 ![Status](https://img.shields.io/badge/status-production--ready-green)
 ![Version](https://img.shields.io/badge/version-2.0.0-blue)
 ![Python](https://img.shields.io/badge/python-3.10+-blue)
