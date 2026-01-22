@@ -4,6 +4,7 @@ Adapted for microservices architecture
 """
 import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 print("🧪 Testing MVM² Math Verification System Components\n")
 print("=" * 60)
@@ -11,11 +12,15 @@ print("=" * 60)
 # Test 1: OCR Service
 print("\n1️⃣ Testing OCR Service...")
 try:
-    from services.ocr_service import EnhancedMathOCR
+    from backend.core.ocr_service import EnhancedMathOCR
     from PIL import Image
     import numpy as np
     
     ocr = EnhancedMathOCR()
+
+    # ... (skipping context match lines for tool efficiency if possible, but replace tool needs exact match. 
+    # I will replace blocks.)
+
     
     # Create a simple test image
     test_img = Image.new('RGB', (200, 100), color='white')
@@ -106,7 +111,7 @@ except Exception as e:
 # Test 5: Orchestrator (Integration)
 print("\n5️⃣ Testing Orchestrator (Integration)...")
 try:
-    from services.orchestrator import MathVerificationOrchestrator
+    from backend.core.orchestrator import MathVerificationOrchestrator
     
     orchestrator = MathVerificationOrchestrator()
     

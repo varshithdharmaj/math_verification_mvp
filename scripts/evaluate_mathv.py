@@ -4,9 +4,11 @@ Evaluates our MVM² system on MATH-V benchmark (NeurIPS 2024)
 """
 import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import json
 from typing import Dict, List
-from services.orchestrator import MathVerificationOrchestrator
+from backend.core.orchestrator import MathVerificationOrchestrator
 
 class MATHVEvaluator:
     """

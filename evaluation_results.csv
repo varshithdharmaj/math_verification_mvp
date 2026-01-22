@@ -1,0 +1,9 @@
+problem_id,type,mode,latency_ms,exact_match,final_confidence,avg_consensus,hallucination_rate,verdict,ground_truth,predicted
+text_001,text,single_llm_only,0.75,False,0.405,0.0,0.0,UNKNOWN,9,UNKNOWN
+text_001,text,llm_plus_sympy,0.14,False,0.405,0.0,0.0,UNKNOWN,9,UNKNOWN
+text_001,text,multi_agent_no_ocr_conf,0.13,False,0.405,0.0,0.0,UNKNOWN,9,UNKNOWN
+text_001,text,full_mvm2,0.13,False,0.405,0.0,0.0,UNKNOWN,9,UNKNOWN
+text_002,text,single_llm_only,0.11,False,0.405,0.0,0.0,UNKNOWN,5,UNKNOWN
+text_002,text,llm_plus_sympy,0.1,False,0.405,0.0,0.0,UNKNOWN,5,UNKNOWN
+text_002,text,multi_agent_no_ocr_conf,0.1,False,0.405,0.0,0.0,UNKNOWN,5,UNKNOWN
+text_002,text,full_mvm2,0.1,False,0.405,0.0,0.0,UNKNOWN,5,UNKNOWN

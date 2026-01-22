@@ -1,0 +1,14 @@
+[
+    {
+        "problem_id": "text_001",
+        "type": "text",
+        "input_text_or_path": "Calculate the integral of x^2 from 0 to 3. Steps: 1. Integrate x^2 to get x^3/3. 2. Evaluate at 3: 3^3/3 = 27/3 = 9. 3. Evaluate at 0: 0. 4. Result is 9 - 0 = 9.",
+        "ground_truth_answer": "9"
+    },
+    {
+        "problem_id": "text_002",
+        "type": "text",
+        "input_text_or_path": "Solve 2x + 5 = 15. Steps: 1. Subtract 5 from both sides: 2x = 10. 2. Divide by 2: x = 5.",
+        "ground_truth_answer": "5"
+    }
+]

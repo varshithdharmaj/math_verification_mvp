@@ -10,6 +10,7 @@ from PIL import Image
 from typing import Dict
 
 # Add handwritten-math-transcription to path
+# Since we are in backend/, we go up one level to root, then to handwritten-math-transcription
 HMT_PATH = os.path.join(os.path.dirname(__file__), "..", "handwritten-math-transcription")
 sys.path.insert(0, HMT_PATH)
 
@@ -93,7 +94,8 @@ class HandwrittenMathOCR:
         """
         try:
             # Import stroke extraction module
-            from services.stroke_extraction import extract_features_from_image
+            # UPDATED: Use relative import since both are in backend package
+            from .stroke_extraction import extract_features_from_image
             
             # Extract strokes and convert to features
             features = extract_features_from_image(image)

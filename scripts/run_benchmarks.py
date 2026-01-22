@@ -4,6 +4,7 @@ Unified script to run evaluations on integrated research benchmarks.
 """
 import os
 import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import argparse
 import subprocess
 
@@ -13,7 +14,8 @@ def run_mathverse(limit=None):
     print("[START] MathVerse Benchmark (ECCV 2024)")
     print("="*50)
     
-    cmd = [sys.executable, "evaluate_mathverse.py"]
+    script_path = os.path.join(os.path.dirname(__file__), "evaluate_mathverse.py")
+    cmd = [sys.executable, script_path]
     if limit:
         cmd.extend(["--limit", str(limit)])
         
@@ -25,7 +27,8 @@ def run_mathv(limit=None):
     print("[START] MATH-V Benchmark (NeurIPS 2024)")
     print("="*50)
     
-    cmd = [sys.executable, "evaluate_mathv.py"]
+    script_path = os.path.join(os.path.dirname(__file__), "evaluate_mathv.py")
+    cmd = [sys.executable, script_path]
     if limit:
         cmd.extend(["--limit", str(limit)])
         

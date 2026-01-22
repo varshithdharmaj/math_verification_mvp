@@ -8,10 +8,12 @@ import os
 # Add MathVerse to path
 mathverse_path = os.path.join(os.path.dirname(__file__), '..', 'external_resources', 'MathVerse')
 sys.path.insert(0, mathverse_path)
+# Add Project Root to path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import json
 from typing import Dict, List
-from services.orchestrator import MathVerificationOrchestrator
+from backend.core.orchestrator import MathVerificationOrchestrator
 
 class MathVerseEvaluator:
     """
