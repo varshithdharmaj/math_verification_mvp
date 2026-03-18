@@ -1,0 +1,51 @@
+{
+  "timestamp": "2025-11-23T19:45:33.484403",
+  "mode": "api",
+  "results": [
+    {
+      "valid": false,
+      "gold": "6",
+      "prediction": "6",
+      "gold_parsed": null,
+      "pred_parsed": null,
+      "error_type": "Parse Error: Could not parse gold answer",
+      "details": "Gold parsed: N/A, Prediction parsed: N/A"
+    },
+    {
+      "valid": false,
+      "gold": "61",
+      "prediction": "61",
+      "gold_parsed": null,
+      "pred_parsed": null,
+      "error_type": "Parse Error: Could not parse gold answer",
+      "details": "Gold parsed: N/A, Prediction parsed: N/A"
+    },
+    {
+      "valid": false,
+      "gold": "D",
+      "prediction": "D",
+      "gold_parsed": null,
+      "pred_parsed": null,
+      "error_type": "Parse Error: Could not parse gold answer",
+      "details": "Gold parsed: N/A, Prediction parsed: N/A"
+    },
+    {
+      "valid": false,
+      "gold": "6",
+      "prediction": "6",
+      "gold_parsed": null,
+      "pred_parsed": null,
+      "error_type": "Parse Error: Could not parse gold answer",
+      "details": "Gold parsed: N/A, Prediction parsed: N/A"
+    },
+    {
+      "valid": false,
+      "gold": "2",
+      "prediction": "2",
+      "gold_parsed": null,
+      "pred_parsed": null,
+      "error_type": "Parse Error: Could not parse gold answer",
+      "details": "Gold parsed: N/A, Prediction parsed: N/A"
+    }
+  ]
+}

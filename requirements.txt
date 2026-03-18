@@ -1,0 +1,11 @@
+gradio>=4.0.0
+sympy>=1.12
+google-generativeai>=0.3.0
+pandas
+opencv-python-headless
+pix2text[vlm]>=1.1.2
+fpdf2
+pillow
+numpy
+python-dotenv
+evaluate

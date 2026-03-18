@@ -1,0 +1,36 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Large model files (>10MB)
+**/*.pth
+**/*.h5
+**/*.pkl
+**/*.safetensors
+
+# Large Dataset Directories (>50MB)
+**/dataset/CROHME*
+**/MAIN_ECG_DATA/
+**/data/*.csv
+**/data/*.json
+
+# Logs
+*.log
+eval_error.log
+verification_output.txt
+debug_output.txt
+
+# IDE / editor settings
+.vscode/
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db

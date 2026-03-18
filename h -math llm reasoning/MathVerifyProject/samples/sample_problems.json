@@ -1,0 +1,43 @@
+[
+  {
+    "id": "4",
+    "question": "How many different digits can you find in this picture?",
+    "answer": "6",
+    "subject": "counting",
+    "level": 1,
+    "image": "images/4.jpg"
+  },
+  {
+    "id": "5",
+    "question": "Which number do you have to write in the last daisy?",
+    "answer": "61",
+    "subject": "arithmetic",
+    "level": 2,
+    "image": "images/5.jpg"
+  },
+  {
+    "id": "8",
+    "question": "The sums of the all the three numbers on each side of the triangle are equal. Two numbers happened to be stained with ink. How much is the sum of these two numbers?",
+    "answer": "2",
+    "subject": "arithmetic",
+    "level": 2,
+    "image": "images/8.jpg"
+  },
+  {
+    "id": "10",
+    "question": "Four people can be seated at a square table. How many people at most could be seated if we pushed four tables of this kind together in one row?",
+    "answer": "10",
+    "subject": "arithmetic",
+    "level": 2,
+    "image": "images/10.jpg"
+  },
+  {
+    "id": "11",
+    "question": "Mike has built a construction, shown in the upper picture, from equal cubes. Lily has taken several cubes out of it, thus Mike's construction became such as we see in the lower picture. How many cubes has Lily taken?",
+    "answer": "7",
+    "subject": "solid geometry",
+    "level": 1,
+    "image": "images/11.jpg"
+  }
+]
+

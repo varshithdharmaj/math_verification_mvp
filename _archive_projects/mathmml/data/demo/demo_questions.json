@@ -1,0 +1,65 @@
+[
+  {
+    "problem": "Natalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?",
+    "steps_correct": [
+      "Natalia sold 48/2 = 24 clips in May.",
+      "Natalia sold 48+24 = 72 clips altogether in April and May."
+    ],
+    "steps_incorrect": [
+      "Natalia sold 48/2 = 25 clips in May.",
+      "Natalia sold 48+24 = 72 clips altogether in April and May."
+    ],
+    "expected_error": "arithmetic_error",
+    "error_location": 0
+  },
+  {
+    "problem": "A store has 15 apples. They sell 8 apples. How many apples are left?",
+    "steps_correct": [
+      "The store has 15 apples.",
+      "They sell 8 apples.",
+      "15 - 8 = 7 apples left."
+    ],
+    "steps_incorrect": [
+      "The store has 15 apples.",
+      "They sell 8 apples.",
+      "15 - 8 = 6 apples left."
+    ],
+    "expected_error": "arithmetic_error",
+    "error_location": 2
+  },
+  {
+    "problem": "Calculate 5 + 3",
+    "steps_correct": [
+      "5 + 3 = 8"
+    ],
+    "steps_incorrect": [
+      "5 + 3 = 9"
+    ],
+    "expected_error": "arithmetic_error",
+    "error_location": 0
+  },
+  {
+    "problem": "Add 10 and 5, then subtract 3",
+    "steps_correct": [
+      "10 + 5 = 15",
+      "15 - 3 = 12"
+    ],
+    "steps_incorrect": [
+      "10 + 5 = 15",
+      "15 - 3 = 13"
+    ],
+    "expected_error": "arithmetic_error",
+    "error_location": 1
+  },
+  {
+    "problem": "Multiply 6 by 4",
+    "steps_correct": [
+      "6 \u00d7 4 = 24"
+    ],
+    "steps_incorrect": [
+      "6 \u00d7 4 = 20"
+    ],
+    "expected_error": "arithmetic_error",
+    "error_location": 0
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "timestamp": "2025-11-23T19:45:33.263007",
+  "mode": "pipeline",
+  "results": [
+    {
+      "sample_id": "4",
+      "gold": "6",
+      "prediction": "6",
+      "verification": false,
+      "question": "How many different digits can you find in this pic..."
+    },
+    {
+      "sample_id": "5",
+      "gold": "61",
+      "prediction": "61",
+      "verification": false,
+      "question": "Which number do you have to write in the last dais..."
+    },
+    {
+      "sample_id": "6",
+      "gold": "D",
+      "prediction": "D",
+      "verification": false,
+      "question": "Misty the cat has five kittens: two of them are st..."
+    },
+    {
+      "sample_id": "7",
+      "gold": "6",
+      "prediction": "6",
+      "verification": false,
+      "question": "How many bricks are missing in the wall?\n<image1>..."
+    },
+    {
+      "sample_id": "8",
+      "gold": "2",
+      "prediction": "2",
+      "verification": false,
+      "question": "The sums of the all the three numbers on each side..."
+    }
+  ]
+}
