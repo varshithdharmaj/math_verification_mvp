@@ -1,0 +1,27 @@
+# Core Math & Verification
+numpy>=1.19.0
+sympy>=1.8
+math-verify[antlr4_13_2]
+antlr4-python3-runtime==4.13.2
+latex2sympy2_extended==1.1.0
+
+# LLM & API
+openai>=1.0.0
+python-dotenv>=1.0.0
+requests
+pydantic>=2.0.0
+
+# Deep Learning (OCR)
+torch>=1.9.0
+torchvision
+editdistance
+
+# UI & Visualization
+gradio>=4.0.0
+matplotlib>=3.3.0
+tqdm>=4.50.0
+
+# Misc
+flask
+fastapi
+uvicorn

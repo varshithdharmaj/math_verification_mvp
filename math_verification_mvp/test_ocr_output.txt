@@ -1,0 +1,28 @@
+Initializing MVM2 Local OCR Subsystem (Pix2Text + LaTeX-OCR)...
+Loaded Pix2Text Model successfully.
+\nProcessing Image: C:\Users\Varshith Dharmaj\Downloads\major\math_verification_mvp\test_math.png
+Loading C:\Users\Varshith Dharmaj\AppData\Roaming\pix2text\1.1\mfd-1.5-onnx\pix2text-mfd-1.5.onnx for ONNX Runtime inference...
+Using ONNX Runtime 1.24.3 with CPUExecutionProvider
+
+0: 384x768 1 embedding, 1 isolated, 312.6ms
+Speed: 115.1ms preprocess, 312.6ms inference, 38.1ms postprocess per image at shape (1, 3, 384, 768)
+\n==================================================
+🏆 MVM2 LOCAL OCR ENGINE - PIPELINE VERIFICATION
+==================================================
+Backend Used: pix2text
+\n[EXTRACTED LATEX]
+
+$$
+2 x+4=1 0
+$$
+
+\n[DETECTED LAYOUT MAP]
+[
+  {
+    "type": "mixed",
+    "text": "\n$$\n2 x+4=1 0\n$$\n"
+  }
+]
+\n[WEIGHTED OCR CONFIDENCE SCORE]: 90.55%
+==================================================
+\nStatus: Verification SUCCESS

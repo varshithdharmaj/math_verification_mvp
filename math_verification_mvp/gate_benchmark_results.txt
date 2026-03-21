@@ -1,0 +1,37 @@
+============================================================
+🎓 MVM² ADVANCED COMPETITIVE EXAM BENCHMARK (GATE / JEE)
+============================================================
+Total problems queued: 5
+
+[EVALUATING] GATE (CS) - Linear Algebra
+Problem: Let M be a 2x2 matrix such that M = [[4, 1], [2, 3]]. Find the sum of the eigenv...
+    [ATTENTION] System flagged errors in logic: []
+  -> Result: ❌ FLAGGED | Confidence: 57.4% | Latency: 4.747s
+
+[EVALUATING] JEE Advanced - Calculus
+Problem: Evaluate the definite integral of x * e^x from x=0 to x=1....
+    [ATTENTION] System flagged errors in logic: []
+  -> Result: ❌ FLAGGED | Confidence: 43.8% | Latency: 5.266s
+
+[EVALUATING] GATE (EC) - Probability
+Problem: A box contains 4 red balls and 6 black balls. Three balls are drawn at random wi...
+    [ATTENTION] System flagged errors in logic: []
+  -> Result: ❌ FLAGGED | Confidence: 58.3% | Latency: 1.392s
+
+[EVALUATING] JEE Mains - Kinematics Paradox
+Problem: A particle moves such that its velocity v is given by v = t^2 - 4t + 3. Find the...
+    [ATTENTION] System flagged errors in logic: []
+  -> Result: ❌ FLAGGED | Confidence: 58.3% | Latency: 1.385s
+
+[EVALUATING] GATE (ME) - Differential Equations
+Problem: Solve the initial value problem dy/dx = 2xy, y(0) = 1. Find y at x = 1....
+    [ATTENTION] System flagged errors in logic: []
+  -> Result: ❌ FLAGGED | Confidence: 58.3% | Latency: 1.504s
+
+============================================================
+🏆 FINAL COMPETITIVE BENCHMARK METRICS
+============================================================
+Advanced Exam Accuracy: 0.0% (Expected > 85%)
+Average Confidence:     55.2%
+Average Latency:        2.859s
+============================================================

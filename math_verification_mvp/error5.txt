@@ -1,0 +1,32 @@
+============================================================
+[RUNNING] MVM2 CORE NEURO-SYMBOLIC INTEGRATION PIPELINE VERIFICATION
+============================================================
+[Pipeline] Dispatching Image 'C:\Users\Varshith Dharmaj\Downloads\major\math_verification_mvp\test_math.png' to Vision Subsystem...
+[Pipeline] Dispatching Image 'C:\Users\Varshith Dharmaj\Downloads\major\math_verification_mvp\test_math.png' to Vision Subsystem (Bypassing Subprocess due to WinError 6)...
+\n[OK] [LAYER 1] OCR Extraction Complete (Conf: 92.0%)
+   Transcribed Math:  \int_{0}^{\pi} \sin(x^{2}) \, dx\n
+[Orchestrator] Dispatching '\int_{0}^{\pi} \sin(x^{2}) \, dx' to 4 Parallel Models...
+Traceback (most recent call last):
+  File "C:\Users\Varshith Dharmaj\Downloads\major\math_verification_mvp\services\core_engine\agent_orchestrator.py", line 71, in run_agent_orchestrator
+    print(f"\u2705 {agent['name']} completed reasoning.")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Varshith Dharmaj\Downloads\major\math_verification_mvp\services\core_engine\main_pipeline.py", line 66, in <module>
+    run_end_to_end_test()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Varshith Dharmaj\Downloads\major\math_verification_mvp\services\core_engine\main_pipeline.py", line 42, in run_end_to_end_test
+    agent_responses = run_agent_orchestrator(problem_text)
+  File "C:\Users\Varshith Dharmaj\Downloads\major\math_verification_mvp\services\core_engine\agent_orchestrator.py", line 73, in run_agent_orchestrator
+    print(f"\u274c {agent['name']} generated an exception: {exc}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>

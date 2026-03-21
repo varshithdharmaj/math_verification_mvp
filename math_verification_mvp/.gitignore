@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.idea/
+.vscode/
+*~
+*.swp
+*.swo
+.DS_Store
+temp_upload.png
+math_verification_mvp/math_verification_mvp/.env
+# Large datasets / external resources - not needed for HF deployment
+external_resources/
+.benchmarks/
+*.log
+agent_test.log
+error.log
+services/local_ocr/venv/

@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  input-receiver:
+    build: ../services/input_receiver
+    ports:
+      - "8000:8000"
+    networks:
+      - mvm_network
+
+  preprocessing-service:
+    build: ../services/preprocessing_service
+    ports:
+      - "8001:8001"
+    networks:
+      - mvm_network
+
+  ocr-service:
+    build: ../services/ocr_service
+    ports:
+      - "8002:8002"
+    networks:
+      - mvm_network
+
+  representation-service:
+    build: ../services/representation_service
+    ports:
+      - "8003:8003"
+    networks:
+      - mvm_network
+
+  verification-service:
+    build: ../services/verification_service
+    ports:
+      - "8004:8004"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    networks:
+      - mvm_network
+
+  classifier-service:
+    build: ../services/classifier_service
+    ports:
+      - "8005:8005"
+    networks:
+      - mvm_network
+
+  reporting-service:
+    build: ../services/reporting_service
+    ports:
+      - "8006:8006"
+    networks:
+      - mvm_network
+
+  dashboard-service:
+    build: ../services/dashboard
+    ports:
+      - "8501:8501"
+    networks:
+      - mvm_network
+
+networks:
+  mvm_network:
+    driver: bridge

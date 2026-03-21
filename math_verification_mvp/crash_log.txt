@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:\Users\Varshith Dharmaj\Downloads\major\math_verification_mvp\services\core_engine\main_pipeline.py", line 9, in <module>
+    def invoke_ocr_subsystem(image_path: str) -> Dict:
+                                                 ^^^^
+NameError: name 'Dict' is not defined. Did you mean: 'dict'?

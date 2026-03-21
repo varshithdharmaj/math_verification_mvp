@@ -1,0 +1,63 @@
+MVM2 OCR DIAGNOSTIC TOOL
+========================
+[INFO] 2026-03-12 13:55:37,183 [RapidOCR] base.py:22: Using engine_name: onnxruntime
+[INFO] 2026-03-12 13:55:37,187 [RapidOCR] main.py:53: Using C:\Users\Varshith Dharmaj\AppData\Roaming\cnstd\1.2\ppocr\ch_PP-OCRv5_det\ch_PP-OCRv5_det_infer.onnx
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Could not find any ONNX files with standard file name decoder_model_merged.onnx, files found: [WindowsPath('decoder_model.onnx'), WindowsPath('encoder_model.onnx')]. Please make sure to pass a `file_name` and/or `subfolder` argument to `from_pretrained` when loading an ONNX file with non-standard file names.
+Loaded Pix2Text Model successfully.
+Engine Model Loaded: True
+
+[TESTING RAW] test_math.png
+Loading C:\Users\Varshith Dharmaj\AppData\Roaming\pix2text\1.1\mfd-1.5-onnx\pix2text-mfd-1.5.onnx for ONNX Runtime inference...
+Using ONNX Runtime 1.24.3 with CPUExecutionProvider
+
+0: 384x768 1 embedding, 1 isolated, 356.2ms
+Speed: 80.6ms preprocess, 356.2ms inference, 5.7ms postprocess per image at shape (1, 3, 384, 768)
+
+  0%|          | 0/1 [00:00<?, ?it/s]
+100%|##########| 1/1 [00:00<00:00,  3.98it/s]
+100%|##########| 1/1 [00:00<00:00,  3.97it/s]
+Raw Result: 
+$$
+2 x+4=1 0
+$$
+
+
+[TESTING ENHANCED] test_math.png
+
+0: 384x768 (no detections), 330.3ms
+Speed: 4.2ms preprocess, 330.3ms inference, 1.3ms postprocess per image at shape (1, 3, 384, 768)
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]
+Enhanced Result: 2x+4-0
+
+[SKIP] services/dashboard/test_math.png not found.
+
+[TESTING RAW] synth_math.png
+
+0: 192x768 1 isolated, 176.5ms
+Speed: 1.4ms preprocess, 176.5ms inference, 6.6ms postprocess per image at shape (1, 3, 192, 768)
+
+  0%|          | 0/1 [00:00<?, ?it/s]
+100%|##########| 1/1 [00:00<00:00,  1.65it/s]
+100%|##########| 1/1 [00:00<00:00,  1.65it/s]
+Raw Result: 
+$$
+\mathrm{f ( x ) ~=~ x \ensuremath{\to} 2 ~+~ 2 x ~+~ 1}
+$$
+
+
+[TESTING ENHANCED] synth_math.png
+
+0: 192x768 1 isolated, 142.5ms
+Speed: 1.3ms preprocess, 142.5ms inference, 1.3ms postprocess per image at shape (1, 3, 192, 768)
+
+  0%|          | 0/1 [00:00<?, ?it/s]
+100%|##########| 1/1 [00:00<00:00,  2.08it/s]
+100%|##########| 1/1 [00:00<00:00,  2.08it/s]
+Enhanced Result: 
+$$
+\mathrm{f ( x ) ~=~ x \hat{~} 2 ~+~ 2 x ~+~ 1 ~}
+$$
+

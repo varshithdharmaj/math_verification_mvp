@@ -1,0 +1,138 @@
+============================================================
+≡ƒÜÇ MVM┬▓ CORE NEURO-SYMBOLIC INTEGRATION PIPELINE VERIFICATION
+============================================================
+[Pipeline] Dispatching Image 'C:\Users\Varshith Dharmaj\Downloads\major\math_verification_mvp\test_math.png' to Vision Subsystem...
+\nΓ£à [LAYER 1] OCR Extraction Complete (Conf: 94.0%)
+   Transcribed Math:  
+$$
+2 x+4=1 0
+$$
+\n
+[Orchestrator] Dispatching '
+$$
+2 x+4=1 0
+$$
+' to 4 Parallel Models...
+Γ£à Llama-3.1-8B-Instruct completed reasoning.
+Γ£à DeepSeek-Math-7B (Zero-Shot) completed reasoning.
+Γ£à DeepSeek-Math-7B (CoT) completed reasoning.
+Γ£à Qwen-2.5-Math-7B completed reasoning.
+\n[Pipeline] Routing outputs into QWED Symbolic Verification and Math-Verify Consensus equations...
+\n============================================================
+≡ƒÄ» FINAL MVM┬▓ PIPELINE VERDICT
+============================================================
+Verified Answer:   42
+Weighted Score:    0.810 / 1.000
+Total Latency:     18.39s (Target: < 8.2s)
+\n[Detailed Agent Matrix]
+ - Llama-3.1-8B-Instruct: ans=   42 | V_sym=1.00 | L_logic=0.60 | C_clf=0.80 -> Score_j=0.810
+ - DeepSeek-Math-7B (Zero-Shot): ans=   42 | V_sym=1.00 | L_logic=0.60 | C_clf=0.80 -> Score_j=0.810
+ - DeepSeek-Math-7B (CoT): ans=   42 | V_sym=1.00 | L_logic=0.60 | C_clf=0.80 -> Score_j=0.810
+ - Qwen-2.5-Math-7B: ans=   42 | V_sym=1.00 | L_logic=0.60 | C_clf=0.80 -> Score_j=0.810
+\n[Divergence Group Normalization (Math-Verify)]
+ - Group [ 42 ]: 1 Agent(s) Support. Group Score = 0.810
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=39644, pipe_handle=488)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 113, in spawn_main
+    new_handle = reduction.duplicate(pipe_handle,
+                                     source_process=source_process)
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\reduction.py", line 79, in duplicate
+    return _winapi.DuplicateHandle(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        source_process, handle, target_process,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        0, inheritable, _winapi.DUPLICATE_SAME_ACCESS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 6] The handle is invalid
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=39644, pipe_handle=488)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 113, in spawn_main
+    new_handle = reduction.duplicate(pipe_handle,
+                                     source_process=source_process)
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\reduction.py", line 79, in duplicate
+    return _winapi.DuplicateHandle(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        source_process, handle, target_process,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        0, inheritable, _winapi.DUPLICATE_SAME_ACCESS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 6] The handle is invalid
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=39644, pipe_handle=488)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 113, in spawn_main
+    new_handle = reduction.duplicate(pipe_handle,
+                                     source_process=source_process)
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\reduction.py", line 79, in duplicate
+    return _winapi.DuplicateHandle(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        source_process, handle, target_process,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        0, inheritable, _winapi.DUPLICATE_SAME_ACCESS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 6] The handle is invalid
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=39644, pipe_handle=488)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 113, in spawn_main
+    new_handle = reduction.duplicate(pipe_handle,
+                                     source_process=source_process)
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\reduction.py", line 79, in duplicate
+    return _winapi.DuplicateHandle(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        source_process, handle, target_process,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        0, inheritable, _winapi.DUPLICATE_SAME_ACCESS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 6] The handle is invalid
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=39644, pipe_handle=488)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 113, in spawn_main
+    new_handle = reduction.duplicate(pipe_handle,
+                                     source_process=source_process)
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\reduction.py", line 79, in duplicate
+    return _winapi.DuplicateHandle(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        source_process, handle, target_process,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        0, inheritable, _winapi.DUPLICATE_SAME_ACCESS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 6] The handle is invalid
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=39644, pipe_handle=488)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 113, in spawn_main
+    new_handle = reduction.duplicate(pipe_handle,
+                                     source_process=source_process)
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\reduction.py", line 79, in duplicate
+    return _winapi.DuplicateHandle(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        source_process, handle, target_process,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        0, inheritable, _winapi.DUPLICATE_SAME_ACCESS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 6] The handle is invalid
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=39644, pipe_handle=472)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 113, in spawn_main
+    new_handle = reduction.duplicate(pipe_handle,
+                                     source_process=source_process)
+  File "C:\Users\Varshith Dharmaj\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\reduction.py", line 79, in duplicate
+    return _winapi.DuplicateHandle(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        source_process, handle, target_process,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        0, inheritable, _winapi.DUPLICATE_SAME_ACCESS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 6] The handle is invalid

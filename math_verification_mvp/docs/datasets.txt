@@ -1,0 +1,62 @@
+MVM2 DATASETS AND UNIFIED SCHEMA
+================================
+
+Goal
+----
+Use real public datasets for math reasoning (text) and OCR math (image).
+Create a unified dataset format for training and evaluation.
+
+Proposed public datasets (text)
+-------------------------------
+1) GSM8K
+   - Format: JSONL with question, answer.
+   - Size: ~8.5k training, 1.3k test.
+   - Suitability: Word problems with step-by-step reasoning and final answers.
+
+2) MATH (by Hendrycks)
+   - Format: JSON with problem, solution, final answer.
+   - Size: ~12.5k problems.
+   - Suitability: Higher difficulty; good for generalization and error analysis.
+
+3) SVAMP
+   - Format: JSON with structured fields.
+   - Size: ~1k problems.
+   - Suitability: Simple arithmetic word problems; good for early testing.
+
+Proposed public datasets (image / OCR)
+--------------------------------------
+1) CROHME
+   - Format: InkML (handwritten math).
+   - Size: Thousands of handwritten expressions.
+   - Suitability: OCR pipeline evaluation.
+
+2) Im2LaTeX-100K
+   - Format: Image + LaTeX pairs.
+   - Size: ~100k samples.
+   - Suitability: Printed math OCR and text alignment.
+
+3) MathVerse (image + question)
+   - Format: Images + problems + answers.
+   - Size: Varies by split.
+   - Suitability: Multimodal math reasoning evaluation.
+
+Unified dataset schema
+----------------------
+Each example in unified JSON should follow:
+
+{
+  "problem_id": "...",
+  "input_type": "text" | "image",
+  "input_text": "...",        // for text problems
+  "image_path": "...",        // for image problems
+  "ground_truth_answer": "...",
+  "split": "train" | "val" | "test"
+}
+
+Notes
+-----
+1) Use small slices for development (100-300 samples).
+2) Keep images local and store their paths in image_path.
+3) Use separate train/val/test files for evaluation and training.
+4) The learned classifier is trained only on the features derived from pipeline outputs.
+5) LLM and OCR components are evaluated, not trained here.

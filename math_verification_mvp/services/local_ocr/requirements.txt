@@ -1,0 +1,4 @@
+pix2text[vlm]>=1.1.2
+pix2tex[gui]>=0.1.2
+sympy>=1.12
+Pillow>=10.0.0

@@ -1,0 +1,26 @@
+MVM2 OCR DIAGNOSTIC TOOL
+========================
+[INFO] 2026-03-12 13:54:44,564 [RapidOCR] base.py:22: Using engine_name: onnxruntime
+[INFO] 2026-03-12 13:54:44,568 [RapidOCR] main.py:53: Using C:\Users\Varshith Dharmaj\AppData\Roaming\cnstd\1.2\ppocr\ch_PP-OCRv5_det\ch_PP-OCRv5_det_infer.onnx
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Could not find any ONNX files with standard file name decoder_model_merged.onnx, files found: [WindowsPath('decoder_model.onnx'), WindowsPath('encoder_model.onnx')]. Please make sure to pass a `file_name` and/or `subfolder` argument to `from_pretrained` when loading an ONNX file with non-standard file names.
+Loaded Pix2Text Model successfully.
+Engine Model Loaded: True
+
+[TESTING RAW] test_math.png
+Model Inference failed: Unsupported file type: auto. Falling back to error.
+Raw Result: Error during OCR: Unsupported file type: auto
+
+[TESTING ENHANCED] test_math.png
+Model Inference failed: Unsupported file type: auto. Falling back to error.
+Enhanced Result: Error during OCR: Unsupported file type: auto
+
+[SKIP] services/dashboard/test_math.png not found.
+
+[TESTING RAW] synth_math.png
+Model Inference failed: Unsupported file type: auto. Falling back to error.
+Raw Result: Error during OCR: Unsupported file type: auto
+
+[TESTING ENHANCED] synth_math.png
+Model Inference failed: Unsupported file type: auto. Falling back to error.
+Enhanced Result: Error during OCR: Unsupported file type: auto
